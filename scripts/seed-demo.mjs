@@ -203,9 +203,9 @@ const products = [
 }));
 
 async function seedDemo() {
-  await prisma.$transaction(async (tx) => {
+  {
     for (const category of categories) {
-      await tx.category.upsert({
+      await prisma.category.upsert({
         where: { id: category.id },
         update: {},
         create: category,
@@ -214,7 +214,7 @@ async function seedDemo() {
 
     for (const product of products) {
       const { features, plans, tags, ...record } = product;
-      await tx.product.upsert({
+      await prisma.product.upsert({
         where: { id: product.id },
         update: {},
         create: {
@@ -227,14 +227,14 @@ async function seedDemo() {
       });
     }
 
-    const existingDemoUser = await tx.user.findUnique({
+    const existingDemoUser = await prisma.user.findUnique({
       where: { email: "viewer@example.test" },
     });
     if (existingDemoUser && !existingDemoUser.isDemo) {
       throw new Error("Refusing to overwrite a non-demo user account.");
     }
 
-    const demoUser = await tx.user.upsert({
+    const demoUser = await prisma.user.upsert({
       where: { email: "viewer@example.test" },
       update: { isDemo: true },
       create: {
@@ -276,7 +276,7 @@ async function seedDemo() {
 
     for (const order of demoOrders) {
       const createdAt = timestamp - BigInt(order.daysAgo) * 86400000n;
-      await tx.order.upsert({
+      await prisma.order.upsert({
         where: { id: order.id },
         update: { isDemo: true },
         create: {
@@ -302,14 +302,14 @@ async function seedDemo() {
       });
     }
 
-    const existingDemoAdmin = await tx.adminUser.findUnique({
+    const existingDemoAdmin = await prisma.adminUser.findUnique({
       where: { username: "demo" },
     });
     if (existingDemoAdmin && existingDemoAdmin.role !== "demo") {
       throw new Error("Refusing to overwrite a non-demo admin account.");
     }
 
-    await tx.adminUser.upsert({
+    await prisma.adminUser.upsert({
       where: { username: "demo" },
       update: {
         name: "ادمین نمایشی",
@@ -324,7 +324,7 @@ async function seedDemo() {
         createdAt: timestamp,
       },
     });
-  });
+  }
 
   console.log("Demo catalog and read-only admin are ready.");
 }
