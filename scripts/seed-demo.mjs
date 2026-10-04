@@ -199,6 +199,7 @@ const products = [
   },
 ].map((product, index) => ({
   ...product,
+  isActive: true,
   createdAt: timestamp - BigInt(index),
 }));
 
