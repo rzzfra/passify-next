@@ -1,0 +1,99 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model AdminUser {
+  id        Int    @id @default(autoincrement())
+  username  String @unique
+  password  String
+  name      String
+  createdAt BigInt
+}
+
+model User {
+  id           Int     @id @default(autoincrement())
+  telegramId   String? @unique
+  email        String? @unique
+  password     String?
+  authProvider String
+  username     String?
+  firstName    String?
+  lastName     String?
+  photoUrl     String?
+  createdAt    BigInt
+}
+
+model Category {
+  id          String  @id
+  name        String
+  englishName String?
+  icon        String
+  description String?
+  gradient    String?
+  accentColor String?
+  order       Int
+  isActive    Boolean
+}
+
+model Product {
+  id              String  @id
+  title           String
+  subtitle        String
+  categoryId      String
+  price           Int
+  originalPrice   Int?
+  discountPercent Int?
+  image           String
+  badge           String?
+  rating          Float
+  salesCount      Int
+  description     String
+  features        String
+  plans           String
+  customFields    String
+  tags            String
+  isActive        Boolean
+  createdAt       BigInt
+}
+
+model Order {
+  id                String  @id
+  userId            Int?
+  telegramId        String?
+  productId         String
+  planName          String
+  amount            Int
+  status            String
+  paymentRef        String?
+  customerData      String
+  licenseKey        String?
+  telegramMessageId Int?
+  createdAt         BigInt
+  updatedAt         BigInt
+}
+
+model Setting {
+  key   String @id
+  value String
+}
+
+model Post {
+  id               String  @id
+  title            String
+  slug              String @unique
+  summary           String
+  content           String
+  coverImage        String
+  tags              String
+  readingTime       String
+  relatedProductId String?
+  views             Int
+  isPublished      Boolean
+  createdAt         BigInt
+  updatedAt         BigInt
+}
