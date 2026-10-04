@@ -3,7 +3,7 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
@@ -85,15 +85,15 @@ model Setting {
 model Post {
   id               String  @id
   title            String
-  slug              String @unique
-  summary           String
-  content           String
-  coverImage        String
-  tags              String
-  readingTime       String
+  slug             String  @unique
+  summary          String
+  content          String
+  coverImage       String
+  tags             String
+  readingTime      String
   relatedProductId String?
-  views             Int
+  views            Int
   isPublished      Boolean
-  createdAt         BigInt
-  updatedAt         BigInt
+  createdAt        BigInt
+  updatedAt        BigInt
 }
