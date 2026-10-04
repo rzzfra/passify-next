@@ -12,6 +12,7 @@ model AdminUser {
   username  String @unique
   password  String
   name      String
+  role      String @default("admin")
   createdAt BigInt
 }
 
@@ -21,6 +22,7 @@ model User {
   email        String? @unique
   password     String?
   authProvider String
+  isDemo       Boolean @default(false)
   username     String?
   firstName    String?
   lastName     String?
@@ -65,6 +67,7 @@ model Order {
   id                String  @id
   userId            Int?
   telegramId        String?
+  isDemo            Boolean @default(false)
   productId         String
   planName          String
   amount            Int

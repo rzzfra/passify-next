@@ -89,12 +89,21 @@ npm run dev
 | ------------------------- | -------------------------------------- |
 | `npm run dev`             | اجرای توسعه                            |
 | `npm run build`           | ساخت نسخه تولید                        |
-| `npm run vercel-build`    | همگام‌سازی schema و ساخت برای Vercel   |
+| `npm run vercel-build`    | همگام‌سازی schema، seed دمو و build    |
 | `npm start`               | اجرای نسخه ساخته‌شده                   |
 | `npm run typecheck`       | تولید Prisma Client و بررسی TypeScript |
 | `npm run db:push`         | همگام‌سازی schema با دیتابیس           |
 | `npm run db:admin:create` | ساخت مدیر اولیه                        |
 | `npm run db:studio`       | بازکردن Prisma Studio                  |
+
+## دموی آنلاین
+
+- فروشگاه: [مشاهده دمو](https://passify-next-git-main-rezazafarian-yahoocoms-projects.vercel.app)
+- پنل مدیریت: [ورود به دمو](https://passify-next-git-main-rezazafarian-yahoocoms-projects.vercel.app/admin)
+- نام کاربری: `demo`
+- رمز عبور: `PassifyDemo2026!`
+
+حساب پنل فقط خواندنی است؛ کاربران، سفارش‌ها و آمار آن ساختگی‌اند و به داده‌های واقعی دسترسی ندارد. پرداخت در حالت آزمایشی است؛ اطلاعات واقعی وارد نکنید.
 
 ## استقرار و نگهداری داده
 
@@ -105,7 +114,7 @@ npm run build
 npm start
 ```
 
-در Vercel، مخزن را Import و Prisma Postgres را متصل کنید. پیشوند integration باید `DATABASE` باشد تا متغیر `DATABASE_URL` ساخته شود. تنظیم [`vercel.json`](vercel.json) فرمان `npm run vercel-build` را اجرا می‌کند و schema را پیش از build همگام می‌کند. `JWT_SECRET` را به‌صورت Secret تنظیم و `NEXT_PUBLIC_APP_URL` را روی دامنه‌ی نهایی قرار دهید. دیتابیس تازه خالی است؛ داده‌های دیتابیس محلی خودکار منتقل نمی‌شوند.
+در Vercel، مخزن را Import و Prisma Postgres را متصل کنید. پیشوند integration باید `DATABASE` باشد تا متغیر `DATABASE_URL` ساخته شود. تنظیم [`vercel.json`](vercel.json) فرمان `npm run vercel-build` را اجرا می‌کند؛ schema را همگام و seed دمو را به‌صورت idempotent اجرا می‌کند. `JWT_SECRET` را به‌صورت Secret تنظیم و `NEXT_PUBLIC_APP_URL` را روی دامنه‌ی نهایی قرار دهید. داده‌های دیتابیس محلی خودکار منتقل نمی‌شوند.
 
 آپلودهای `public/uploads` روی Vercel ماندگار نیستند؛ آپلود از پنل مدیریت به Object Storage نیاز دارد. تا آن زمان از URL تصاویر میزبانی‌شده‌ی بیرونی استفاده کنید. فایل `.env` و آپلودهای محلی عمداً در Git نادیده گرفته می‌شوند.
 

@@ -108,6 +108,7 @@ export interface AdminUser {
   userId: number;
   username: string;
   name: string;
+  role?: "admin" | "demo";
 }
 
 export interface AdminSettings {

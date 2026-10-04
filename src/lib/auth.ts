@@ -40,6 +40,8 @@ export async function requireAdmin(request: Request) {
   const payload = await decodeToken(bearer(request));
   if (!payload?.userId || !payload?.username)
     throw new ApiError(401, "توکن ورود منقضی شده است.");
+  if (payload.role === "demo" && request.method !== "GET")
+    throw new ApiError(403, "حساب نمایشی فقط اجازه مشاهده دارد.");
   return payload;
 }
 export async function requireWebUser(request: Request) {
